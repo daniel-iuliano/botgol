@@ -95,10 +95,3 @@ export function stopPriceSocket() {
     console.log('🛑 WebSocket detenido');
   }
 }
-import { enqueue } from './pairQueue.js';
-
-ws.on('price', (pair, price) => {
-  enqueue(pair, async () => {
-    await processPrice(pair, price);
-  });
-});

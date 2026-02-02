@@ -2,7 +2,7 @@ import { fetchCandles, getCandles } from './marketData.js';
 import { calculateIndicators } from './indicators.js';
 import { scalpingStrategy } from './strategy.js';
 import { openPosition, checkExit } from './executor.js';
-import { getLastPrice, isWsConnected } from './wsPrice.js';
+import { getLastPrice, isWsConnected, startPriceSocket } from './wsPrice.js';
 import { calculatePositionSize, canTrade } from './risk.js';
 import { exchange } from '../config/exchange.js';
 import { ENV } from '../config/env.js';
@@ -11,6 +11,7 @@ import { state } from './state.js';
 export async function startBot() {
   console.log('🤖 Bot iniciado (modo estable)');
   state.running = true;
+  startPriceSocket();
 
   setInterval(async () => {
     if (!isWsConnected()) return;
